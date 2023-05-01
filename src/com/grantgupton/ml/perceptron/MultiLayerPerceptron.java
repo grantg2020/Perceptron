@@ -60,10 +60,29 @@ public class MultiLayerPerceptron extends Perceptron {
 		return layerSizes;
 	}
 
+	/**
+	 * Returns the sigma function results (1/(1 + e^-x))
+	 * 
+	 * @param value value to calculate
+	 * @return result of calculation
+	 */
+	private double sigma(double value) {
+		return 1.0 / (1.0 + Math.pow(Math.E, -value));
+	}
+
+	/**
+	 * Returns the sigma prime function results sigma * (1 - sigma)
+	 * 
+	 * @param value value to calculate
+	 * @return result of calculation
+	 */
+	private double sigmaPrime(double value) {
+		return sigma(value) * (1.0 - sigma(value));
+	}
+
 	@Override
 	public double activation(double value) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sigmaPrime(value);
 	}
 
 	@Override
