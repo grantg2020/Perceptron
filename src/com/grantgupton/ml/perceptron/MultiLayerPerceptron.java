@@ -152,7 +152,7 @@ public class MultiLayerPerceptron extends Perceptron {
 		/** Weights from this neuron to next layer neurons */
 		private double[] weights;
 
-		/** Value of neuron */
+		/** Calculated temporary value of neuron */
 		private double value;
 
 		/** Bias of neuron */
@@ -169,8 +169,8 @@ public class MultiLayerPerceptron extends Perceptron {
 			for (int i = 0; i < nextLayerSize; i++) {
 				w[i] = rand.nextDouble();
 			}
-			setValue(0);
 			setBias(rand.nextDouble());
+			setValue(0);
 		}
 
 		/**
@@ -232,8 +232,8 @@ public class MultiLayerPerceptron extends Perceptron {
 		 * 
 		 * @param weight weight to add
 		 */
-		public void changeWeight(double weight, int index) {
-			this.weights[index] += weight;
+		public void changeWeight(double amount, int index) {
+			this.weights[index] += amount;
 		}
 	}
 }
