@@ -1,6 +1,6 @@
 package com.grantgupton.ml.perceptron;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
  * @author grantgupton
  *
  */
-class MultiLayerPerceptronTest {
+public class MultiLayerPerceptronTest {
 	/** MLP object */
 	MultiLayerPerceptron mlpXOR;
 
@@ -42,7 +42,7 @@ class MultiLayerPerceptronTest {
 	}
 
 	@Test
-	void testTrainAndPredict() {
+	void testTrainAndPredict() throws Exception {
 		mlpXOR.train(trainData);
 		System.out.println(mlpXOR);
 		assertEquals(new double[] { 0 }, mlpXOR.predict(new double[] { 1, 1 }));
@@ -51,4 +51,12 @@ class MultiLayerPerceptronTest {
 		assertEquals(new double[] { 1 }, mlpXOR.predict(new double[] { 1, 0 }));
 	}
 
+	@Test
+	public void testActivation() {
+		mlpXOR.setActivation(Perceptron.Activations.SIGMOID);
+
+		assertEquals(0.73105, mlpXOR.activation(1), 0.0001);
+		assertEquals(0.26894, mlpXOR.activation(-1), 0.0001);
+		assertEquals(0.5, mlpXOR.activation(1), 0.0001);
+	}
 }

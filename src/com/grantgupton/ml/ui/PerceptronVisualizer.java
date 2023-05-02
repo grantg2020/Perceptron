@@ -7,14 +7,11 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.image.BufferedImage;
-import java.util.function.Consumer;
 
 import javax.swing.JFrame;
 
 import com.grantgupton.ml.perceptron.MultiLayerPerceptron;
 import com.grantgupton.ml.perceptron.Perceptron;
-import com.grantgupton.ml.perceptron.PerceptronData;
 import com.grantgupton.ml.perceptron.SingleLayerPerceptron;
 
 public class PerceptronVisualizer extends JFrame {
@@ -54,11 +51,12 @@ public class PerceptronVisualizer extends JFrame {
 			@Override
 			public void componentResized(ComponentEvent arg0) {
 
-//				System.out.println("RESIZING EVENT:");
-//				System.out.println("Frame Size: " + getWidth() + ", " + getHeight());
-//				System.out.println("Pane1 Size: " + pane1.getWidth() + ", " + pane1.getHeight() + "\n");
+				// System.out.println("RESIZING EVENT:");
+				// System.out.println("Frame Size: " + getWidth() + ", " + getHeight());
+				// System.out.println("Pane1 Size: " + pane1.getWidth() + ", " +
+				// pane1.getHeight() + "\n");
 
-//				repaint();
+				// repaint();
 			}
 
 			@Override
@@ -91,10 +89,12 @@ public class PerceptronVisualizer extends JFrame {
 				int textSpacing = 10;
 
 				Rectangle r = new Rectangle(x, y, CIRCLE_SIZE, CIRCLE_SIZE);
-//				drawCenteredString(g2d, i == 0 ? "Input" : "Bias: " + String.format("%.2f", perceptron.getBias(i, j)),
-//						r, new Font(Font.SANS_SERIF, 1, 12), 0, -textSpacing);
-//				drawCenteredString(g2d, "Val: " + String.format("%.2f", perceptron.getValue(i, j)), r,
-//						new Font(Font.SANS_SERIF, 1, 12), 0, textSpacing);
+				// drawCenteredString(g2d, i == 0 ? "Input" : "Bias: " + String.format("%.2f",
+				// perceptron.getBias(i, j)),
+				// r, new Font(Font.SANS_SERIF, 1, 12), 0, -textSpacing);
+				// drawCenteredString(g2d, "Val: " + String.format("%.2f",
+				// perceptron.getValue(i, j)), r,
+				// new Font(Font.SANS_SERIF, 1, 12), 0, textSpacing);
 
 				// If not output layer draw connecting lines
 				if (i < layers.length - 1) {
@@ -108,8 +108,9 @@ public class PerceptronVisualizer extends JFrame {
 							g2d.drawLine(x + CIRCLE_SIZE, y + (CIRCLE_SIZE / 2), x + (CIRCLE_SIZE + PADDING_X), y2);
 							Rectangle r2 = new Rectangle(x + CIRCLE_SIZE, y2 - (textSpacing * m * 2), PADDING_X,
 									PADDING_Y + (textSpacing * m));
-//							drawCenteredString(g2d, String.format("%.2f", perceptron.getWeight(i, m, k)), r2,
-//									new Font(Font.SANS_SERIF, 1, 12));
+							// drawCenteredString(g2d, String.format("%.2f", perceptron.getWeight(i, m, k)),
+							// r2,
+							// new Font(Font.SANS_SERIF, 1, 12));
 						}
 					}
 				}
@@ -145,20 +146,24 @@ public class PerceptronVisualizer extends JFrame {
 
 	public static void main(String[] args) {
 		SingleLayerPerceptron slp = new SingleLayerPerceptron(4);
-		MultiLayerPerceptron mlp = new MultiLayerPerceptron(new int[] {25, 20, 15, 10, 15, 20, 10});
-//		PerceptronData[] trainData = { new PerceptronData(new double[] { 1, 0 }, new double[] { 1 }),
-//				new PerceptronData(new double[] { 1, 1 }, new double[] { 0 }),
-//				new PerceptronData(new double[] { 0, 1 }, new double[] { 1 }),
-//				new PerceptronData(new double[] { 0, 0 }, new double[] { 0 }), };
+		// MultiLayerPerceptron mlp = new MultiLayerPerceptron(new int[] {25, 20, 15,
+		// 10, 15, 20, 10});
+		MultiLayerPerceptron mlp = new MultiLayerPerceptron(new int[] { 2, 3, 1 });
+		// PerceptronData[] trainData = { new PerceptronData(new double[] { 1, 0 }, new
+		// double[] { 1 }),
+		// new PerceptronData(new double[] { 1, 1 }, new double[] { 0 }),
+		// new PerceptronData(new double[] { 0, 1 }, new double[] { 1 }),
+		// new PerceptronData(new double[] { 0, 0 }, new double[] { 0 }), };
 		PerceptronVisualizer p = new PerceptronVisualizer(mlp);
-//		p.repaint();
-//		Consumer<String> con = (str) -> repaintHelper(p);
+		// p.repaint();
+		// Consumer<String> con = (str) -> repaintHelper(p);
 
-//		mlp.train(trainData, con);
+		// mlp.train(trainData, con);
 	}
 
 	private void setUp() {
-//		offScreen = gc.createCompatibleImage(getSize().width, getSize().height, Transparency.TRANSLUCENT);
+		// offScreen = gc.createCompatibleImage(getSize().width, getSize().height,
+		// Transparency.TRANSLUCENT);
 	}
 
 	private static void repaintHelper(PerceptronVisualizer p) {

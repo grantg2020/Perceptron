@@ -16,6 +16,14 @@ public abstract class Perceptron {
 	/** Total epochs run */
 	private int epochs;
 
+	/** Activation function to use */
+	private Activations activationFunction;
+
+	enum Activations {
+		SIGMOID,
+		RELU,
+	}
+
 	public Perceptron(double learningRate) {
 		setLearningRate(learningRate);
 		epochs = 0;
@@ -97,5 +105,12 @@ public abstract class Perceptron {
 	 */
 	public int getEpochs() {
 		return epochs;
+	}
+
+	/**
+	 * Sets the activation function
+	 */
+	public void setActivation(Activations activationFunction) {
+		this.activationFunction = activationFunction;
 	}
 }

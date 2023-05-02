@@ -63,7 +63,6 @@ public class SingleLayerPerceptron extends Perceptron {
 		}
 
 		changeBias(error * getLearningRate());
-//		System.out.println(this);
 		return error;
 	}
 

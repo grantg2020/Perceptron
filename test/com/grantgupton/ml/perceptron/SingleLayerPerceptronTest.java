@@ -1,6 +1,6 @@
 package com.grantgupton.ml.perceptron;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for single layer perceptron
  */
-class SingleLayerPerceptronTest {
+public class SingleLayerPerceptronTest {
 	SingleLayerPerceptron slp;
 
 	// Linearly separable dataset
@@ -34,12 +34,12 @@ class SingleLayerPerceptronTest {
 		System.out.println("Bias: " + slp.getBias());
 		System.out.println(slp);
 
-		assertEquals(1.0, slp.predict(new double[] { 0.1, 0.1 })[0]);
-		assertEquals(1.0, slp.predict(new double[] { 0.3, 0.3 })[0]);
-		assertEquals(1.0, slp.predict(new double[] { 0.2, 0.4 })[0]);
-		assertEquals(0.0, slp.predict(new double[] { 0.9, 1 })[0]);
-		assertEquals(1.0, slp.predict(new double[] { 0.44, 0.44 })[0]);
-		assertEquals(0.0, slp.predict(new double[] { 0.56, 0.56 })[0]);
+		assertEquals(1.0, slp.predict(new double[] { 0.1, 0.1 })[0], 0.0001);
+		assertEquals(1.0, slp.predict(new double[] { 0.3, 0.3 })[0], 0.0001);
+		assertEquals(1.0, slp.predict(new double[] { 0.2, 0.4 })[0], 0.0001);
+		assertEquals(0.0, slp.predict(new double[] { 0.9, 1 })[0], 0.0001);
+		assertEquals(1.0, slp.predict(new double[] { 0.44, 0.44 })[0], 0.0001);
+		assertEquals(0.0, slp.predict(new double[] { 0.56, 0.56 })[0], 0.0001);
 	}
 
 	@Test

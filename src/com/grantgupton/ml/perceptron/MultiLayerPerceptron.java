@@ -21,6 +21,7 @@ public class MultiLayerPerceptron extends Perceptron {
 
 		layerSizes = layers;
 		initLayers(layerSizes);
+		setActivation(Activations.SIGMOID);
 	}
 
 	/**
@@ -51,8 +52,42 @@ public class MultiLayerPerceptron extends Perceptron {
 
 	@Override
 	public double[] predict(double[] inputs) {
-		// TODO Auto-generated method stub
-		return null;
+		Layer inputLayer = layers[0];
+		// Load in input values
+		for (int i = 0; i < inputLayer.size(); i++) {
+			inputLayer.neurons[i].setValue(inputs[i]);
+		}
+
+		// For each layer
+		for (int i = 0; i < layers.length - 1; i++) {
+			// Get the current layer
+			Layer currentLayer = layers[i];
+			Layer nextLayer = layers[i + 1];
+
+			// For each node in the next layer
+			for (int j = 0; j < nextLayer.size(); j++) {
+				// Sum up the weights
+				double sum = 0;
+
+				// For each weight between the current and next layer add the weight
+				for (int k = 0; k < currentLayer.size(); k++) {
+					sum += currentLayer.neurons[k].getValue() * nextLayer.neurons[j].getWeight(j);
+				}
+
+				// Add the bias and calculate the activation function to create the output
+				nextLayer.neurons[j].setValue(sigmoid(sum + nextLayer.neurons[j].getBias()));
+			}
+
+		}
+		double[] output = new double[layers[layers.length - 1].size()];
+
+		// Copy output to array
+		Layer outputLayer = layers[layers.length - 1];
+		for (int i = 0; i < output.length; i++) {
+			output[i] = outputLayer.neurons[i].getValue();
+		}
+
+		return output;
 	}
 
 	@Override
@@ -66,7 +101,7 @@ public class MultiLayerPerceptron extends Perceptron {
 	 * @param value value to calculate
 	 * @return result of calculation
 	 */
-	private double sigma(double value) {
+	private double sigmoid(double value) {
 		return 1.0 / (1.0 + Math.pow(Math.E, -value));
 	}
 
@@ -76,13 +111,13 @@ public class MultiLayerPerceptron extends Perceptron {
 	 * @param value value to calculate
 	 * @return result of calculation
 	 */
-	private double sigmaPrime(double value) {
-		return sigma(value) * (1.0 - sigma(value));
+	private double sigmoidPrime(double value) {
+		return sigmoid(value) * (1.0 - sigmoid(value));
 	}
 
 	@Override
 	public double activation(double value) {
-		return sigmaPrime(value);
+		return sigmoid(value);
 	}
 
 	@Override
@@ -165,11 +200,11 @@ public class MultiLayerPerceptron extends Perceptron {
 			Random rand = new Random();
 			double[] w = new double[nextLayerSize];
 
-			// Fill with random starting weights
+			// Fill with random starting weights between -1 and 1
 			for (int i = 0; i < nextLayerSize; i++) {
-				w[i] = rand.nextDouble();
+				w[i] = rand.nextDouble() * 2 - 1;
 			}
-			setBias(rand.nextDouble());
+			setBias(rand.nextDouble() * 2 - 1);
 			setValue(0);
 		}
 
@@ -216,6 +251,16 @@ public class MultiLayerPerceptron extends Perceptron {
 		 */
 		public double[] getWeights() {
 			return weights;
+		}
+
+		/**
+		 * Returns weight at index
+		 * 
+		 * @param index index of weight
+		 * @return weights
+		 */
+		public double getWeight(int index) {
+			return weights[index];
 		}
 
 		/**
